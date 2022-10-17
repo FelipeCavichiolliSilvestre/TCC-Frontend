@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 
 import { useState, useEffect } from 'react';
 
-function SearchBar({ onChange, delay }) {
+function SearchBar({ onChange, delay, ...props }) {
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
@@ -43,6 +43,7 @@ function SearchBar({ onChange, delay }) {
           </InputAdornment>
         ),
       }}
+      {...props}
     />
   );
 }

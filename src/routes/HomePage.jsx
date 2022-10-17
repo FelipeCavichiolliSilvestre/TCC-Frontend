@@ -3,13 +3,9 @@ import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 
-import { useAuth } from '../contexts/AuthContext';
-
 import ProtectedRoute from '../hoc/ProtectedRoute';
-import { apiClient } from '../api/api';
 
 function HomePage() {
-  const { user, login } = useAuth();
   const weeks = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
   const hours = Array.from({ length: 10 }, (_, i) => i + 1);
 

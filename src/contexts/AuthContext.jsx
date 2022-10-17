@@ -20,7 +20,7 @@ function AuthProvider({ children }) {
       if (jwt) {
         api.changeClientBearerToken(jwt);
 
-        setUser(await api.user.getMe());
+        setUser(await api.users.getMe());
       }
 
       setIsLoading(false);
@@ -31,7 +31,7 @@ function AuthProvider({ children }) {
   async function login(data) {
     const { login, password } = data;
 
-    const { jwt, ...newUser } = await api.user.login({
+    const { jwt, ...newUser } = await api.users.login({
       login,
       password,
     });

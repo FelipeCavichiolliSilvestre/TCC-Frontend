@@ -1,35 +1,25 @@
 import { AppRouter } from './routes/Routes';
-import { ThemeModeProvider } from '@/contexts/ThemeContext';
+import { ThemeModeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { SnackbarProvider } from 'notistack';
-import CloseSnackbarIcon from './components/CloseSnackbarIcon';
-import { SWRConfig } from 'swr';
-import { apiClient } from './api/api';
+import CustomSnackbar from './components/CustomSnackbar';
 
 function App() {
   return (
     <ThemeModeProvider>
       <SnackbarProvider
         anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
-        action={CloseSnackbarIcon}
-        autoHideDuration={1500}
-        dense
+        Components={{
+          default: CustomSnackbar,
+          error: CustomSnackbar,
+          info: CustomSnackbar,
+          success: CustomSnackbar,
+          warning: CustomSnackbar,
+        }}
       >
-        <SWRConfig
-          value={{
-            fetcher: async (resource, query) => {
-              const res = await apiClient.get(resource, {
-                data: { params: query },
-              });
-
-              return res.data;
-            },
-          }}
-        >
-          <AuthProvider>
-            <AppRouter />
-          </AuthProvider>
-        </SWRConfig>
+        <AuthProvider>
+          <AppRouter />
+        </AuthProvider>
       </SnackbarProvider>
     </ThemeModeProvider>
   );

@@ -34,6 +34,7 @@ function Navbar() {
           <CenteredGrid item xs={6}>
             <NavbarLink href="/">Página Inicial</NavbarLink>
             <NavbarLink href="/professors">Professores</NavbarLink>
+            <NavbarLink href="/deadlines">Prazos</NavbarLink>
           </CenteredGrid>
 
           <CenteredGrid item xs={3}>

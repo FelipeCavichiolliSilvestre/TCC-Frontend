@@ -1,13 +1,8 @@
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import IconButton from '@mui/material/IconButton';
 import Skeleton from '@mui/material/Skeleton';
 
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-
-import { useAuth } from '@/contexts/AuthContext';
+import ItemButtons from '../ItemButtons';
 
 function ProfessorListItem({
   id,
@@ -18,42 +13,28 @@ function ProfessorListItem({
   onView,
   loading,
 }) {
-  const { isAdmin } = useAuth();
-
-  const adminButtons = (
-    <>
-      <IconButton onClick={() => onDelete({ id, name, email })}>
-        <DeleteIcon />
-      </IconButton>
-      <IconButton onClick={() => onEdit({ id, name, email })}>
-        <EditIcon />
-      </IconButton>
-    </>
-  );
-
   const actionButtons = (
-    <>
-      {isAdmin && adminButtons}
-      <IconButton onClick={() => onView({ id, name, email })}>
-        <AccessTimeIcon />
-      </IconButton>
-    </>
+    <ItemButtons
+      onView={() => onView({ id, name, email })}
+      onDelete={() => onDelete({ id, name, email })}
+      onEdit={() => onEdit({ id, name, email })}
+      disabled={loading}
+    />
   );
 
   if (loading) {
     return (
       <ListItem secondaryAction={actionButtons}>
         <ListItemText
-          primary={<Skeleton sx={{ maxWidth: '70%' }}></Skeleton>}
+          primary={<Skeleton />}
           primaryTypographyProps={{
             fontSize: 20,
-            color: 'text.primary',
+            maxWidth: '70%',
           }}
-          secondary={<Skeleton sx={{ maxWidth: '60%' }}></Skeleton>}
+          secondary={<Skeleton />}
           secondaryTypographyProps={{
             fontSize: 15,
-            color: 'text.secondary',
-            variant: 'body2',
+            maxWidth: '60%',
           }}
         />
       </ListItem>

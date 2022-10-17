@@ -4,6 +4,7 @@ import WithoutNavbar from '@/layouts/WithoutNavbar';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import ProfessorsPage from './ProfessorsPage';
+import DeadlinesPage from './DeadlinesPage';
 
 export function AppRouter() {
   return (
@@ -14,8 +15,9 @@ export function AppRouter() {
         </Route>
 
         <Route element={<WithNavbar />}>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/professors" element={<ProfessorsPage />}></Route>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/professors" element={<ProfessorsPage />} />
+          <Route path="/deadlines" element={<DeadlinesPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
