@@ -49,7 +49,6 @@ function DeadlineEditDialog({ value: deadline, ...props }) {
             name="toDate"
             label="Data de término"
           />
-          
         </Stack>
       </FormProvider>
     </EditDialog>
