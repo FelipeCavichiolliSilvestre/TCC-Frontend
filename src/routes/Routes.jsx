@@ -1,9 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import WithNavbar from '@/layouts/WithNavbar';
-import WithoutNavbar from '@/layouts/WithoutNavbar';
-import HomePage from './HomePage';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import WithNavbar from '../layouts/WithNavbar';
+import WithoutNavbar from '../layouts/WithoutNavbar';
+import ProfilePage from './ProfilePage';
 import LoginPage from './LoginPage';
 import ProfessorsPage from './ProfessorsPage';
+import DeadlinesPage from './DeadlinesPage';
 
 export function AppRouter() {
   return (
@@ -14,8 +15,10 @@ export function AppRouter() {
         </Route>
 
         <Route element={<WithNavbar />}>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/professors" element={<ProfessorsPage />}></Route>
+          <Route index element={<Navigate to="/profile" />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/professors" element={<ProfessorsPage />} />
+          <Route path="/deadlines" element={<DeadlinesPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

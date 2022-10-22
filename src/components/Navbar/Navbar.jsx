@@ -7,7 +7,7 @@ import { styled } from '@mui/material';
 import ConfigButton from './ConfigButton';
 import NavbarLink from './NavbarLink';
 import Logo from './Logo';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const CenteredGrid = styled(Grid)(() => ({
   display: 'flex',
@@ -34,6 +34,7 @@ function Navbar() {
           <CenteredGrid item xs={6}>
             <NavbarLink href="/">Página Inicial</NavbarLink>
             <NavbarLink href="/professors">Professores</NavbarLink>
+            <NavbarLink href="/deadlines">Prazos</NavbarLink>
           </CenteredGrid>
 
           <CenteredGrid item xs={3}>

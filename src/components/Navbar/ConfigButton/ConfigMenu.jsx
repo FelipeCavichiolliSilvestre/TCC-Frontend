@@ -6,9 +6,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-import { useThemeMode } from '@/contexts/ThemeContext';
-import ThemeBasedIcon from '@/components/ThemeBasedIcon';
-import { useAuth } from '@/contexts/AuthContext';
+import { useThemeMode } from '../../../contexts/ThemeContext';
+import ThemeBasedIcon from '../../../components/ThemeBasedIcon';
+import { useAuth } from '../../../contexts/AuthContext';
 
 function AvatarMenu(props) {
   const { logout } = useAuth();

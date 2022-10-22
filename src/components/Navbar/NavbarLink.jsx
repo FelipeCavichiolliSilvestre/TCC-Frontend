@@ -1,7 +1,20 @@
 import Link from '@mui/material/Link';
+import { useNavigate } from 'react-router-dom';
 
-function NavbarLink(linkProps) {
-  return <Link underline="hover" variant="h6" mx={2} {...linkProps} />;
+function NavbarLink({ children, href, ...LinkProps }) {
+  const navigate = useNavigate();
+
+  return (
+    <Link
+      onClick={() => navigate(href)}
+      underline="hover"
+      variant="h6"
+      mx={2}
+      {...LinkProps}
+    >
+      {children}
+    </Link>
+  );
 }
 
 export default NavbarLink;

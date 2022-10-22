@@ -1,4 +1,4 @@
-import { useThemeMode } from '@/contexts/ThemeContext';
+import { useThemeMode } from '../contexts/ThemeContext';
 
 function ThemeBasedIcon({ darkIcon, lightIcon }) {
   const { isDarkMode } = useThemeMode();

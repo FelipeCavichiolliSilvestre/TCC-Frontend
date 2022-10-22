@@ -1,47 +1,36 @@
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import Container from '@mui/material/Container';
-import ProfessorList from '@/components/ProfessorList';
-import Pagination from '@/components/Pagination';
-import SearchBar from '@/components/Searchbar';
-
-import { useState } from 'react';
-import { usePagination } from '@/hooks/usePagination';
+import {
+  ProfessorsList,
+  ProfessorPagination,
+  ProfessorSearchBar,
+} from '../components/ProfessorsList';
 
 import ProtectedRoute from '../hoc/ProtectedRoute';
+import ProfessorsProvider from '../contexts/ProfessorsContext';
 
 function ProfessorsPage() {
-  const pagination = usePagination({ defaultLimit: 20 });
-  const [term, setTerm] = useState('');
-
-  const professorPagination = (
-    <Pagination
-      currentPage={pagination.userPage}
-      onNext={pagination.nextPage}
-      onPrev={pagination.prevPage}
-      disable={term !== ''}
-      disableLeft={pagination.page === 0}
-    />
-  );
-
   return (
     <Container maxWidth="md">
-      <Grid container columnSpacing={4} mt={3} mb={2}>
-        <Grid xs={6}>{professorPagination}</Grid>
+      <ProfessorsProvider limit={20}>
+        <Grid container columnSpacing={4} mt={3} mb={2}>
+          <Grid xs={6}>
+            <ProfessorPagination />
+          </Grid>
 
-        <Grid xs={6} pr={4}>
-          <SearchBar onChange={setTerm} />
+          <Grid xs={6} pr={4}>
+            <ProfessorSearchBar />
+          </Grid>
         </Grid>
-      </Grid>
 
-      <ProfessorList
-        limit={pagination.limit}
-        page={pagination.page}
-        term={term}
-      />
+        <ProfessorsList />
 
-      <Grid container columnSpacing={4} mt={3} mb={2}>
-        <Grid xs={6}>{professorPagination}</Grid>
-      </Grid>
+        <Grid container columnSpacing={4} mt={2} mb={3} justifyContent="center">
+          <Grid xs={6}>
+            <ProfessorPagination />
+          </Grid>
+        </Grid>
+      </ProfessorsProvider>
     </Container>
   );
 }

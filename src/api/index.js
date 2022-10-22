@@ -1,7 +1,11 @@
-import userApi from './userApi';
-import { changeClientBearerToken } from './api';
+import users from './users';
+import schedules from './schedules';
+import deadlines from './deadlines';
+import { changeClientBearerToken } from './client';
 
 export default {
-  user: userApi,
+  users,
+  schedules,
+  deadlines,
   changeClientBearerToken,
 };

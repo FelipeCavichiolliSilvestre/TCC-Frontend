@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router';
-import Navbar from '@/components/Navbar';
+import Navbar from '../components/Navbar';
 import Paper from '@mui/material/Paper';
 import Toolbar from '@mui/material/Toolbar';
 

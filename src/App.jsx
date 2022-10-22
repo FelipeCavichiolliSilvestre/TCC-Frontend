@@ -1,37 +1,32 @@
 import { AppRouter } from './routes/Routes';
-import { ThemeModeProvider } from '@/contexts/ThemeContext';
+import { ThemeModeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { SnackbarProvider } from 'notistack';
-import CloseSnackbarIcon from './components/CloseSnackbarIcon';
-import { SWRConfig } from 'swr';
-import { apiClient } from './api/api';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+
+import CustomSnackbar from './components/CustomSnackbar';
 
 function App() {
   return (
-    <ThemeModeProvider>
-      <SnackbarProvider
-        anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
-        action={CloseSnackbarIcon}
-        autoHideDuration={1500}
-        dense
-      >
-        <SWRConfig
-          value={{
-            fetcher: async (resource, query) => {
-              const res = await apiClient.get(resource, {
-                data: { params: query },
-              });
-
-              return res.data;
-            },
+    <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale={'pt-BR'}>
+      <ThemeModeProvider>
+        <SnackbarProvider
+          anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
+          Components={{
+            default: CustomSnackbar,
+            error: CustomSnackbar,
+            info: CustomSnackbar,
+            success: CustomSnackbar,
+            warning: CustomSnackbar,
           }}
         >
           <AuthProvider>
             <AppRouter />
           </AuthProvider>
-        </SWRConfig>
-      </SnackbarProvider>
-    </ThemeModeProvider>
+        </SnackbarProvider>
+      </ThemeModeProvider>
+    </LocalizationProvider>
   );
 }
 export default App;
