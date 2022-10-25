@@ -1,15 +1,14 @@
-import Stack from '@mui/material/Stack';
 import EditDialog from '../EditDialog.jsx';
-import FormDateField from '../Form/FormDateField.jsx';
 
-import useEditDeadlineForm from './useEditDeadlineForm.js';
+import useUpsertDeadlineForm from './useUpsertDeadlineForm.js';
 import { FormProvider } from 'react-hook-form';
 import { useEffect } from 'react';
 import { useDeadlines } from '../../contexts/DeadlinesContext';
 import { useBoolean } from 'react-hanger';
+import DeadlineUpsertFields from './DeadlineUpsertFields.jsx';
 
 function DeadlineEditDialog({ value: deadline, ...props }) {
-  const { handleSubmit, reset, ...formMethods } = useEditDeadlineForm();
+  const { handleSubmit, reset, ...formMethods } = useUpsertDeadlineForm();
   const { updateDeadline } = useDeadlines();
   const loading = useBoolean(false);
 
@@ -18,16 +17,13 @@ function DeadlineEditDialog({ value: deadline, ...props }) {
   }, [deadline]);
 
   async function submit({ fromDate, toDate }) {
-    try {
-      loading.setTrue();
-      await updateDeadline(deadline.id, {
-        fromDate,
-        toDate,
-      });
-      props.onClose();
-    } finally {
-      loading.setFalse();
-    }
+    loading.setTrue();
+    await updateDeadline(deadline.id, {
+      fromDate,
+      toDate,
+    });
+    props.onClose();
+    loading.setFalse();
   }
 
   return (
@@ -38,18 +34,7 @@ function DeadlineEditDialog({ value: deadline, ...props }) {
       {...props}
     >
       <FormProvider {...formMethods}>
-        <Stack spacing={2}>
-          <FormDateField
-            maxDate={formMethods.watch('toDate')}
-            name="fromDate"
-            label="Data de início"
-          />
-          <FormDateField
-            minDate={formMethods.watch('fromDate')}
-            name="toDate"
-            label="Data de término"
-          />
-        </Stack>
+        <DeadlineUpsertFields watch={formMethods.watch} />
       </FormProvider>
     </EditDialog>
   );

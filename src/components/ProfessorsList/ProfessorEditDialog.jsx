@@ -1,15 +1,14 @@
-import Stack from '@mui/material/Stack';
 import EditDialog from '../EditDialog.jsx';
 
 import { FormProvider } from 'react-hook-form';
 import { useEffect } from 'react';
 import { useBoolean } from 'react-hanger';
-import useEditProfessorForm from './useEditDeadlineForm.js';
-import FormTextField from '../Form/FormTextField';
+import useUpsertProfessorForm from './useEditProfessorForm.js';
 import { useProfessors } from '../../contexts/ProfessorsContext.jsx';
+import ProfessorUpsertFields from './ProfessorUpsertFields.jsx';
 
 function ProfessorEditDialog({ value: professor, ...props }) {
-  const { handleSubmit, reset, ...formMethods } = useEditProfessorForm();
+  const { handleSubmit, reset, ...formMethods } = useUpsertProfessorForm();
   const { updateProfessor } = useProfessors();
   const loading = useBoolean(false);
 
@@ -18,15 +17,10 @@ function ProfessorEditDialog({ value: professor, ...props }) {
   }, [professor]);
 
   async function submit({ name, email, role }) {
-    try {
-      loading.setTrue();
-
-      await updateProfessor(professor.id, { name, email, role });
-
-      props.onClose();
-    } finally {
-      loading.setFalse();
-    }
+    loading.setTrue();
+    await updateProfessor(professor.id, { name, email, role });
+    props.onClose();
+    loading.setFalse();
   }
 
   return (
@@ -37,10 +31,7 @@ function ProfessorEditDialog({ value: professor, ...props }) {
       {...props}
     >
       <FormProvider {...formMethods}>
-        <Stack spacing={2}>
-          <FormTextField name="name" label="Nome" />
-          <FormTextField name="email" label="Email" />
-        </Stack>
+        <ProfessorUpsertFields />
       </FormProvider>
     </EditDialog>
   );

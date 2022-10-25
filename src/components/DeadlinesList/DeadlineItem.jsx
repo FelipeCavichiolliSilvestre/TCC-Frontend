@@ -1,7 +1,8 @@
+import Skeleton from '@mui/material/Skeleton';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import Skeleton from '@mui/material/Skeleton';
-import ItemButtons from '../ItemButtons';
+
+import ItemAction from '../ItemAction';
 
 function DeadlineItem({
   id,
@@ -16,11 +17,10 @@ function DeadlineItem({
   const active = now >= fromDate && now <= toDate;
 
   const actionButtons = (
-    <ItemButtons
+    <ItemAction
       onView={() => onView({ id, fromDate, toDate })}
       onDelete={() => onDelete({ id, fromDate, toDate })}
       onEdit={() => onEdit({ id, fromDate, toDate })}
-      disabled={loading}
     />
   );
 

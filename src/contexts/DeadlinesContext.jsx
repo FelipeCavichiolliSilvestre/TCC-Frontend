@@ -73,6 +73,26 @@ function DeadlinesProvider({ children, limit }) {
     });
   }
 
+  async function createDeadline({ fromDate, toDate }) {
+    async function create(deadlines) {
+      const deadline = await api.deadlines.create({ fromDate, toDate });
+
+      return [deadline, ...deadlines];
+    }
+
+    await mutate(create, {
+      revalidate: false,
+    }).catch((error) => {
+      if (!(error instanceof ApiError)) throw error;
+
+      enqueueSnackbar({
+        message: 'Não foi possível criar novo prazo.',
+        helper: error.message,
+        variant: 'error',
+      });
+    });
+  }
+
   return (
     <DeadlinesContext.Provider
       value={{
@@ -81,6 +101,7 @@ function DeadlinesProvider({ children, limit }) {
         error,
         deleteDeadline,
         updateDeadline,
+        createDeadline,
         pagination,
       }}
     >

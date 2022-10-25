@@ -1,8 +1,7 @@
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Skeleton from '@mui/material/Skeleton';
-
-import ItemButtons from '../ItemButtons';
+import ItemAction from '../ItemAction';
 
 function ProfessorListItem({
   id,
@@ -14,7 +13,7 @@ function ProfessorListItem({
   loading,
 }) {
   const actionButtons = (
-    <ItemButtons
+    <ItemAction
       onView={() => onView({ id, name, email })}
       onDelete={() => onDelete({ id, name, email })}
       onEdit={() => onEdit({ id, name, email })}

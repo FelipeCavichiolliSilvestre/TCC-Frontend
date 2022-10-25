@@ -91,6 +91,27 @@ function ProfessorsProvider({ children, limit }) {
     });
   }
 
+  async function createProfessor({ name, email, role }) {
+    async function swrCreate(professors) {
+      const professor = await api.users.create({ name, email, role });
+
+      return [professor, ...professors];
+    }
+
+    await mutate(swrCreate, {
+      revalidate: false,
+    }).catch(handleCreateError);
+  }
+
+  function handleCreateError(error) {
+    if (!(error instanceof ApiError)) throw error;
+
+    enqueueSnackbar({
+      message: 'Não foi possível criar novo professor.',
+      helper: error.message,
+    });
+  }
+
   return (
     <ProfessorsContext.Provider
       value={{
@@ -102,6 +123,7 @@ function ProfessorsProvider({ children, limit }) {
         search: setSearchTerm,
         deleteProfessor,
         updateProfessor,
+        createProfessor,
       }}
     >
       {children}

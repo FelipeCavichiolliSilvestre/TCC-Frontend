@@ -3,7 +3,7 @@ import { client } from './client';
 async function create({ fromDate, toDate }) {
   const res = await client.post('/deadlines', { fromDate, toDate });
 
-  return res.data;
+  return convertDeadline(res.data);
 }
 
 async function update(deadlineId, { fromDate, toDate }) {

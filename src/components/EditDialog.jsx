@@ -7,7 +7,6 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 function EditDialog({
   title,
-  getDesc,
   onClose,
   onConfirm,
   children,

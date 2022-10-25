@@ -14,7 +14,25 @@ function ExportListHeader() {
     selectedCounter,
     totalCount,
     toggleAll,
+    isLoading,
   } = useExport();
+
+  if (isLoading) {
+    return (
+      <ListItem dense={false}>
+        <ListItemAvatar>
+          <Checkbox disabled />
+        </ListItemAvatar>
+        <ListItemSecondaryAction>
+          <Typography>0 / 00</Typography>
+        </ListItemSecondaryAction>
+        <ListItemText
+          primary="Selecionar todos"
+          primaryTypographyProps={{ fontSize: 18 }}
+        />
+      </ListItem>
+    );
+  }
 
   return (
     <ListItem dense={false}>

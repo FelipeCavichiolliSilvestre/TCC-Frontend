@@ -1,12 +1,16 @@
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
 
 import { useDeadlines } from '../../contexts/DeadlinesContext';
 import DeadlineItem from './DeadlineItem';
 import useModalSelect from '../../hooks/useModalSelect';
-import DeadlineExportDialog from './DeadlineExportDialog/DeadlineExportDialog';
+import DeadlineExportDialog from './DeadlineExportDialog';
 import DeadlineEditDialog from './DeadlineEditDialog';
 import DeadlineDeleteDialog from './DeadlineDeleteDialog';
+import DeadlineCreateDialog from './DeadlineCreateDialog';
+
+import DividerAddFab from '../DividerAddFab';
+import { useBoolean } from 'react-hanger';
 
 function DeadlinesList() {
   const { deadlines, isLoading, pagination } = useDeadlines();
@@ -14,10 +18,15 @@ function DeadlinesList() {
   const deleteSelect = useModalSelect();
   const exportSelect = useModalSelect();
   const editSelect = useModalSelect();
+  const addModalOpen = useBoolean(false);
 
   if (isLoading) {
     return (
       <Grid container>
+        <Grid my={1} xs={12}>
+          <DividerAddFab onClick={addModalOpen.setTrue} />
+        </Grid>
+
         {Array(pagination.limit)
           .fill()
           .map((_, i) => {
@@ -35,6 +44,10 @@ function DeadlinesList() {
 
   return (
     <Grid container>
+      <Grid my={1} xs={12}>
+        <DividerAddFab onClick={addModalOpen.setTrue} />
+      </Grid>
+
       {deadlines.map(({ id, fromDate, toDate }) => {
         return (
           <Grid xs={6} key={id}>
@@ -52,6 +65,10 @@ function DeadlinesList() {
         );
       })}
 
+      <DeadlineCreateDialog
+        open={addModalOpen.value}
+        onClose={addModalOpen.setFalse}
+      />
       <DeadlineDeleteDialog {...deleteSelect.registerModal()} />
       <DeadlineExportDialog {...exportSelect.registerModal()} />
       <DeadlineEditDialog {...editSelect.registerModal()} />

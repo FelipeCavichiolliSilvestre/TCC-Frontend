@@ -8,12 +8,17 @@ import ConfigButton from './ConfigButton';
 import NavbarLink from './NavbarLink';
 import Logo from './Logo';
 import { useAuth } from '../../contexts/AuthContext';
+import ProtectedComponent from '../../hoc/ProtectedComponent';
 
 const CenteredGrid = styled(Grid)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 }));
+
+const HomePageLink = ProtectedComponent(() => (
+  <NavbarLink href="/">Página Inicial</NavbarLink>
+));
 
 function Navbar() {
   const { isLoading } = useAuth();
@@ -32,7 +37,7 @@ function Navbar() {
           </CenteredGrid>
 
           <CenteredGrid item xs={6}>
-            <NavbarLink href="/">Página Inicial</NavbarLink>
+            <HomePageLink />
             <NavbarLink href="/professors">Professores</NavbarLink>
             <NavbarLink href="/deadlines">Prazos</NavbarLink>
           </CenteredGrid>
