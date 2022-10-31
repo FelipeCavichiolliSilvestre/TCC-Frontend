@@ -5,7 +5,7 @@ async function getXmlSchedule({ startDate, endDate, userIds }) {
     params: {
       startDate,
       endDate,
-      userIds,
+      userIds: userIds.join(','),
     },
   });
 

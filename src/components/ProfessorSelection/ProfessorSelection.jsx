@@ -2,14 +2,14 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import SearchBar from '../../SearchBar';
+import SearchBar from '../SearchBar';
 
-import { useExport } from '../../../contexts/ExportContext';
-import ExportListItem from './ExportListItem';
-import ExportListHeader from './ExportListHeader';
+import { useSelection } from '../../contexts/ProfessorSelectionContext';
+import SelectionItem from './SelectionItem';
+import SelectionHeader from './SelectionHeader';
 
-function ExportList() {
-  const { users, search, isLoading, makeUserSelect } = useExport();
+function ProfessorSelection() {
+  const { professors, search, isLoading, makeProfessorSelect } = useSelection();
 
   return (
     <List sx={{ minHeight: '100vh' }} scroll="body" dense>
@@ -23,13 +23,16 @@ function ExportList() {
         </ListItemText>
       </ListItem>
 
-      <ExportListHeader />
+      <SelectionHeader />
       <Divider />
 
-      {(isLoading ? Array(20).fill(null) : users).map((user) => {
+      {(isLoading ? Array(20).fill(null) : professors).map((professor) => {
         return (
           <>
-            <ExportListItem user={user} onSelect={user && makeUserSelect(user)}/>
+            <SelectionItem
+              professor={professor}
+              onSelect={professor && makeProfessorSelect(professor)}
+            />
             <Divider />
           </>
         );
@@ -38,4 +41,4 @@ function ExportList() {
   );
 }
 
-export default ExportList;
+export default ProfessorSelection;

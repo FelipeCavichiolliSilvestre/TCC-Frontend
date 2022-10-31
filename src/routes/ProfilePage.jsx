@@ -6,23 +6,25 @@ import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import ProtectedRoute from '../hoc/ProtectedRoute';
 
 function ProfilePage() {
-  const weeks = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
+  const weeks = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
   const hours = Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (
     <Container maxWidth="md">
-      <Grid container columns={6}>
+      <Grid container columns={weeks.length + 1}>
         <Grid
           xs={1}
           sx={{
             border: '1px gray solid',
           }}
-        ></Grid>
+        />
+
         {weeks.map((title) => (
           <Grid
             key="title"
             xs={1}
             sx={{
+              py: 2,
               border: '1px gray solid',
               borderLeft: 'none',
             }}
@@ -40,11 +42,12 @@ function ProfilePage() {
               sx={{
                 border: '1px gray solid',
                 borderTop: 'none',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
-              <Typography textAlign="center" variant="h5">
-                {hour}
-              </Typography>
+              <Typography variant="h5">{hour}° aula</Typography>
             </Grid>
             {weeks.map((v, i) => (
               <Grid
@@ -57,7 +60,7 @@ function ProfilePage() {
                 key={i}
                 xs={1}
               >
-                <Checkbox sx={{ width: '100%', aspectRatio: 1 }} />
+                <Checkbox sx={{ width: '100%', aspectRatio: '1 / 1' }} />
               </Grid>
             ))}
           </>

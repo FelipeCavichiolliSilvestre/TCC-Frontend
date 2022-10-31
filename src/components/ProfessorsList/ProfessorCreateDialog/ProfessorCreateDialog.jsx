@@ -11,6 +11,7 @@ import { FormProvider } from 'react-hook-form';
 import useUpsertProfessorForm from '../useEditProfessorForm';
 import ProfessorUpsertFields from '../ProfessorUpsertFields';
 import { Typography } from '@mui/material';
+import ImportButton from './ImportButton';
 
 function ProfessorCreateDialog({ open, onClose }) {
   const loading = useBoolean();
@@ -30,7 +31,7 @@ function ProfessorCreateDialog({ open, onClose }) {
     <Dialog maxWidth="sm" fullWidth open={open} onClose={onClose}>
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
         Adicionar professor
-        <Button>IMPORTAR</Button>
+        <ImportButton onClose={onClose} />
       </DialogTitle>
       <DialogContent dividers>
         <FormProvider {...formMethods}>

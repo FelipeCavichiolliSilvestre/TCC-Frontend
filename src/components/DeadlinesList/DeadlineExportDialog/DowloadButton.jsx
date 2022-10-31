@@ -1,16 +1,35 @@
-import { useExport } from '../../../contexts/ExportContext';
+import { useSelection } from '../../../contexts/ProfessorSelectionContext';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useBoolean } from 'react-hanger';
+import api from '../../../api';
 
-function DowloadButton({ onClose, ...props }) {
-  const { dowload, isLoading } = useExport();
+function DowloadButton({ onClose, deadline, ...props }) {
+  const { getSelectedOptions, isLoading } = useSelection();
   const loading = useBoolean(false);
+
+  async function dowload() {
+    const xml = await api.schedules.getXmlSchedule({
+      startDate: deadline.fromDate,
+      endDate: deadline.toDate,
+      userIds: getSelectedOptions().map((u) => u.id),
+    });
+
+    let element = document.createElement('a');
+    element.setAttribute(
+      'href',
+      'data:text/plain;charset=utf-8,' + encodeURIComponent(xml)
+    );
+    element.setAttribute('download', 'schedules.xml');
+
+    element.style.display = 'none';
+    element.click();
+  }
 
   async function onClick() {
     try {
       loading.setTrue();
       await dowload();
-      await onClose();
+      onClose();
     } finally {
       loading.setFalse();
     }
